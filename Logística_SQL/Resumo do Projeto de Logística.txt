@@ -1,0 +1,7 @@
+Resumo do Projeto de Logística em SQL
+
+O presente projeto tem como finalidade a construção de um banco de dados relacional voltado à gestão logística, estruturado em conformidade com princípios de modelagem dimensional. O sistema foi desenvolvido com cinco tabelas principais: produto, cliente, transportadora, tempo e a tabela fato entregas. As tabelas de dimensão armazenam informações descritivas sobre os elementos envolvidos no processo logístico, enquanto a tabela fato concentra os registros das entregas realizadas, contendo métricas quantitativas como quantidade enviada, custo de frete e tempo de transporte.
+
+Cada tabela foi preenchida com vinte registros fictícios, possibilitando a simulação de um ambiente realista para análise de dados. A partir dessa estrutura, foram elaboradas consultas SQL analíticas com o objetivo de gerar indicadores de desempenho (KPIs) relevantes às operações logísticas, tais como: identificação dos três produtos mais enviados, cálculo do tempo médio de entrega por transportadora, apuração do custo total de frete por estado e estimativa de faturamento simulado, considerando uma multiplicação de 1,2 sobre o valor do frete.
+
+O projeto demonstra a aplicabilidade de bancos de dados na área logística, evidenciando como a organização e análise estruturada das informações podem subsidiar processos decisórios, otimizar recursos e aprimorar o desempenho operacional.
