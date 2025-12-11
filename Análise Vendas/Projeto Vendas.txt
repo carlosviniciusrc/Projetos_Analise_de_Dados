@@ -1,0 +1,187 @@
+Projeto Vendas:
+
+- Colunas das tabelas
+
+Cliente: id cliente, Nome, Segmento, Cidade, Estado, País, Mercado, Região
+Pedidos: id pedido, Data Pedido, Data Envio, Modo Envio, Prioridade Pedido
+Produtos: id Produto, Categoria, Subcategoria, Nome Produto
+Vendas: Pedido, Cliente, Produto, Valor Venda, Quantidade Vendida, Custo do Envio
+
+
+
+------------ Estrutura Recomendada do Dashboard ---------------
+
+
+# Página 1 – Dashboard **Clientes**
+
+### Objetivo
+
+Entregar visão do perfil dos clientes, segmentação e comportamento de compras.
+
+### Indicadores (Cards)
+
+* Valor Total por Cliente
+* Quantidade Total por Cliente
+* Ticket Médio por Cliente
+
+### Gráficos
+
+1. **Top 10 Clientes por Faturamento**
+
+   * Barras horizontais
+
+2. **Faturamento por Segmento**
+
+   * Colunas ou pizza (evitar excesso)
+
+3. **Faturamento por Região / Estado**
+
+   * Mapa preenchido
+
+4. **Tabela detalhada**
+
+   * Cliente, segmento, região, quantidades, valor total
+
+---
+
+# Página 2 – Dashboard **Produtos**
+
+### Objetivo
+
+Analisar desempenho por categoria, subcategoria e produto.
+
+### KPIs
+
+* Valor Total por Produto
+* Quantidade Total Vendida
+* Produto mais vendido
+* Categoria mais rentável
+
+### Gráficos
+
+1. **Faturamento por Categoria → Subcategoria**
+
+   * Barras empilhadas ou hierarquia
+
+2. **Top 10 Produtos por Faturamento**
+
+   * Barras
+
+3. **Top Produtos por Quantidade Vendida**
+
+   * Barras
+
+4. **Matriz Produto x Cliente**
+
+   * Para análise cruzada
+
+---
+
+# Página 3 – Dashboard **Vendas**
+
+### Objetivo
+
+Visão executiva de vendas gerais.
+
+### KPIs
+
+* Faturamento Total
+* Quantidade Total Vendida
+* Lucro Bruto
+* Ticket Médio
+* Custo Total de Envio
+
+### Gráficos
+
+1. **Linha Temporal de Faturamento**
+
+   * Usar pedidos[data_pedido]
+
+2. **Faturamento por Modo de Envio**
+
+   * Colunas
+
+3. **Faturamento por Prioridade do Pedido**
+
+   * Barras
+
+4. **Tabela de Vendas Detalhadas**
+
+   * Cliente, Produto, Quantidade, Valor, Data do Pedido
+
+---
+
+# Página 4 – Dashboard **Pedidos**
+
+### Objetivo
+
+Analisar ciclo do pedido e comportamentos operacionais.
+
+### KPIs
+
+* Quantidade de Pedidos
+* Tempo Médio de Entrega (dias)
+* % Pedidos por Modo de Envio
+* % Pedidos por Prioridade
+
+### Gráficos
+
+1. **Distribuição de Pedidos por Prioridade**
+
+   * Colunas ou pizza
+
+2. **Evolução Mensal de Pedidos**
+
+   * Linha
+
+3. **Tempo de Entrega Médio por Mês**
+
+   * Linha
+
+4. **Pedidos por Modo de Envio**
+
+   * Barras
+
+---
+
+# 5. Calendário (DimDate) – Opcional, mas recomenda-se
+
+Se quiser análises temporais mais avançadas, crie uma dimensão calendário.
+
+```DAX
+Calendario =
+ADDCOLUMNS (
+    CALENDAR ( DATE(2015,1,1), DATE(2030,12,31) ),
+    "Ano", YEAR([Date]),
+    "Mes_Num", MONTH([Date]),
+    "Mes", FORMAT([Date], "MMMM"),
+    "Ano-Mes", FORMAT([Date], "YYYY-MM")
+)
+```
+
+Relacione:
+
+* pedidos[data_pedido] → Calendario[Date]
+
+---
+
+# 6. Fluxo Final para Montagem
+
+1. Conectar Power BI ao MySQL (ou importar via CSV).
+2. Confirmar que as chaves estrangeiras estão funcionando.
+3. Montar o Star Schema conforme descrito.
+4. Criar as medidas DAX essenciais.
+5. Criar as páginas com KPIs e visuais recomendados.
+6. Aplicar segmentadores (cliente, produto, ano, categoria, estado).
+7. Validar se valores agregados batem com as tabelas originais.
+
+---
+
+Se desejar, posso:
+
+* Criar **todas as medidas DAX prontas** para o seu modelo.
+* Criar o **layout completo** das 4 páginas com os visuais sugeridos.
+* Gerar um **mockup** das páginas para você replicar no Power BI.
+* Criar um **arquivo PBIX modelo**.
+
+Deseja que eu monte as **medidas** ou a **estrutura do dashboard** completa?
