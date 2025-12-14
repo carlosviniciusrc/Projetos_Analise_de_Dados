@@ -9,179 +9,174 @@ Vendas: Pedido, Cliente, Produto, Valor Venda, Quantidade Vendida, Custo do Envi
 
 
 
------------- Estrutura Recomendada do Dashboard ---------------
+------------ Estrutura do Dashboard ---------------
 
 
-# Página 1 – Dashboard **Clientes**
+Página 1 – Clientes e Produtos (Visão Comercial)
+Objetivo
 
-### Objetivo
+Consolidar informações estratégicas sobre clientes e produtos em uma única visão executiva orientada a rentabilidade, volume e perfil.
 
-Entregar visão do perfil dos clientes, segmentação e comportamento de compras.
+KPIs (Cards no topo)
 
-### Indicadores (Cards)
+Faturamento Total
+[Valor Total]
 
-* Valor Total por Cliente
-* Quantidade Total por Cliente
-* Ticket Médio por Cliente
+Quantidade Total Vendida
+[Quantidade Total Vendida]
 
-### Gráficos
+Ticket Médio
+[Ticket Médio]
 
-1. **Top 10 Clientes por Faturamento**
+Clientes Ativos
+[Clientes Ativos]
 
-   * Barras horizontais
+Produtos Ativos
+[Produtos Ativos]
 
-2. **Faturamento por Segmento**
+Visuais – Seção Clientes
+1. Top 10 Clientes por Faturamento
 
-   * Colunas ou pizza (evitar excesso)
+Gráfico: barras horizontais
 
-3. **Faturamento por Região / Estado**
+Eixo: clientes[nome]
 
-   * Mapa preenchido
+Valor: [Valor por Cliente]
 
-4. **Tabela detalhada**
+2. Faturamento por Segmento
 
-   * Cliente, segmento, região, quantidades, valor total
+Gráfico: colunas
 
----
+Eixo: clientes[segmento]
 
-# Página 2 – Dashboard **Produtos**
+Valor: [Valor Total]
 
-### Objetivo
+3. Mapa – Faturamento por Estado
 
-Analisar desempenho por categoria, subcategoria e produto.
+Gráfico: mapa preenchido
 
-### KPIs
+Local: clientes[estado]
 
-* Valor Total por Produto
-* Quantidade Total Vendida
-* Produto mais vendido
-* Categoria mais rentável
+Valor: [Valor Total]
 
-### Gráficos
+Visuais – Seção Produtos
+4. Faturamento por Categoria
 
-1. **Faturamento por Categoria → Subcategoria**
+Gráfico: colunas
 
-   * Barras empilhadas ou hierarquia
+Eixo: produtos[categoria]
 
-2. **Top 10 Produtos por Faturamento**
+Valor: [Valor Total]
 
-   * Barras
+5. Top 10 Produtos por Faturamento
 
-3. **Top Produtos por Quantidade Vendida**
+Gráfico: barra horizontal
 
-   * Barras
+Eixo: produtos[nome_produto]
 
-4. **Matriz Produto x Cliente**
+Valor: [Valor por Produto]
 
-   * Para análise cruzada
+6. Tabela de Clientes e Produtos
 
----
+Colunas sugeridas:
 
-# Página 3 – Dashboard **Vendas**
+Cliente
 
-### Objetivo
+Produto
 
-Visão executiva de vendas gerais.
+Categoria
 
-### KPIs
+Quantidade Vendida
 
-* Faturamento Total
-* Quantidade Total Vendida
-* Lucro Bruto
-* Ticket Médio
-* Custo Total de Envio
+Valor Total
 
-### Gráficos
+Permite análise cruzada Cliente × Produto.
 
-1. **Linha Temporal de Faturamento**
+Segmentadores (Slicers)
 
-   * Usar pedidos[data_pedido]
+Segmento
 
-2. **Faturamento por Modo de Envio**
+Estado
 
-   * Colunas
+Categoria
 
-3. **Faturamento por Prioridade do Pedido**
+Ano (se houver calendário)
 
-   * Barras
+Produto
 
-4. **Tabela de Vendas Detalhadas**
+Página 2 – Vendas e Pedidos (Visão Operacional)
+Objetivo
 
-   * Cliente, Produto, Quantidade, Valor, Data do Pedido
+Analisar desempenho comercial ao longo do tempo e eficiência operacional dos pedidos.
 
----
+KPIs (Cards no topo)
 
-# Página 4 – Dashboard **Pedidos**
+Faturamento Total
 
-### Objetivo
+Quantidade Total Vendida
 
-Analisar ciclo do pedido e comportamentos operacionais.
+Lucro Bruto
 
-### KPIs
+Total de Pedidos
 
-* Quantidade de Pedidos
-* Tempo Médio de Entrega (dias)
-* % Pedidos por Modo de Envio
-* % Pedidos por Prioridade
+Tempo Médio de Entrega (dias)
 
-### Gráficos
+Visuais – Seção Vendas
+1. Evolução do Faturamento por Mês
 
-1. **Distribuição de Pedidos por Prioridade**
+Gráfico: linha
 
-   * Colunas ou pizza
+Eixo: pedidos[data_pedido]
 
-2. **Evolução Mensal de Pedidos**
+Valor: [Valor Total]
 
-   * Linha
+2. Faturamento por Prioridade do Pedido
 
-3. **Tempo de Entrega Médio por Mês**
+Gráfico: barras
 
-   * Linha
+Eixo: pedidos[prioridade]
 
-4. **Pedidos por Modo de Envio**
+Valor: [Valor Total]
 
-   * Barras
+3. Faturamento por Modo de Envio
 
----
+Gráfico: colunas
 
-# 5. Calendário (DimDate) – Opcional, mas recomenda-se
+Eixo: pedidos[modo_envio]
 
-Se quiser análises temporais mais avançadas, crie uma dimensão calendário.
+Valor: [Valor Total]
 
-```DAX
-Calendario =
-ADDCOLUMNS (
-    CALENDAR ( DATE(2015,1,1), DATE(2030,12,31) ),
-    "Ano", YEAR([Date]),
-    "Mes_Num", MONTH([Date]),
-    "Mes", FORMAT([Date], "MMMM"),
-    "Ano-Mes", FORMAT([Date], "YYYY-MM")
-)
-```
+Visuais – Seção Pedidos
+4. Quantidade de Pedidos por Prioridade
 
-Relacione:
+Gráfico: barras
 
-* pedidos[data_pedido] → Calendario[Date]
+Eixo: pedidos[prioridade]
 
----
+Valor: [Total de Pedidos]
 
-# 6. Fluxo Final para Montagem
+5. Evolução do Tempo Médio de Entrega
 
-1. Conectar Power BI ao MySQL (ou importar via CSV).
-2. Confirmar que as chaves estrangeiras estão funcionando.
-3. Montar o Star Schema conforme descrito.
-4. Criar as medidas DAX essenciais.
-5. Criar as páginas com KPIs e visuais recomendados.
-6. Aplicar segmentadores (cliente, produto, ano, categoria, estado).
-7. Validar se valores agregados batem com as tabelas originais.
+Gráfico: linha
 
----
+Eixo: pedidos[data_pedido] (mês)
 
-Se desejar, posso:
+Valor: [Tempo de Entrega (dias)]
 
-* Criar **todas as medidas DAX prontas** para o seu modelo.
-* Criar o **layout completo** das 4 páginas com os visuais sugeridos.
-* Gerar um **mockup** das páginas para você replicar no Power BI.
-* Criar um **arquivo PBIX modelo**.
+6. Tabela de Pedidos Detalhados
 
-Deseja que eu monte as **medidas** ou a **estrutura do dashboard** completa?
+Colunas:
+
+id_pedido
+
+data_pedido
+
+data_envio
+
+prioridade
+
+modo_envio
+
+valor total (via medida)
+
+quantidade vendida
